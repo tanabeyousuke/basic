@@ -1,0 +1,9 @@
+section basicdata
+name : basic
+link:gcc -o <name> <obj>
+end section basicdata
+
+
+section assemble
+c:src/c:gcc -c <src>
+end section assemble
