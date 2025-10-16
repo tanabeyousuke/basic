@@ -1,0 +1,8 @@
+section basicdata
+name:basic
+link:link:gfortran -o <name> <obj> 
+end section basicdata
+
+section assemble
+c:src/c:gcc -c <src> -o <obj>
+end section assemble
