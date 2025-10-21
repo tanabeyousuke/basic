@@ -1,6 +1,6 @@
 section basicdata
 name:basic
-link:link:gfortran -o <name> <obj> 
+link:gcc -o <name> <obj> 
 end section basicdata
 
 section assemble
