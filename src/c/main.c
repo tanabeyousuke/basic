@@ -2,23 +2,25 @@
 
 int main(void)
 {
-  code_line* program = malloc(0);
-  int line_num = -1;
+  int line_num = 0;
+  code_line* program = malloc(sizeof(line_num) * line_num);
 
   char line[512];
-  get_input(line);
-  printf("%s\n", line);
-
-  int linenum = code_or_line(line);
-
-  if(linenum != -1)
+  bool l_or_c = true;
+  
+  while(l_or_c == true)
     {
-      printf("code, %d \n", linenum);
+      get_input(line);
+      add_code_line(program, &line_num, line);
+      l_or_c = code_or_line(line);
     }
-  else
+
+  for(int i = 0; i < line_num; i++)
     {
-      printf("line\n");
+      printf("%s/n", program[i].line);
     }
   
+
+  free(program);
   return 0;
 }

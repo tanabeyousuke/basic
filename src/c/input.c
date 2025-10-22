@@ -18,7 +18,7 @@ void get_input(char* line_buffer)
 
 bool code_or_line(const char* line)
 {
-  int num = -1;
+  bool num = false;
   int token_start, token_end;
   token_end = 0;
   get_token(line, &token_start, &token_end);
@@ -32,7 +32,7 @@ bool code_or_line(const char* line)
 
       if(isdigit((unsigned char)line[i]))
 	{
-	  sscanf(&line[0], "%d", &num);
+	  num = true;
 	}
     }
 
@@ -43,11 +43,15 @@ bool code_or_line(const char* line)
   
 void add_code_line(code_line* program, int* old_size, const char* line)
 {
-  program = realloc(program, (*old_size + 1) * sizeof(code_line));
-  
+  *old_size = *old_size + 1;
+  printf("%d\n", *old_size);
+  code_line *old = program;
+  program = realloc(old, *old_size * sizeof(code_line));
+  free(old);
   /* program[*old_size].num = line_num; */
   
+  printf("%s\n", line);
   int len = strlen(line);
   strncpy(program[*old_size].line, line, len);
-  *old_size = *old_size + 1;
+  
 }
