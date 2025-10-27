@@ -11,6 +11,8 @@ void get_token(const char* line, int* start, int* end)
   *end = *start + 1;
   while(line[*end] != ' ')
     {
+      if(line[*end] == '\0') break;
       *end = *end + 1;
     }
 }
+

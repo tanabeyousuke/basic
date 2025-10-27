@@ -9,5 +9,13 @@
 
 #include "input.h"
 #include "my_util.h"
+#include "hensuu.h"
+#include "formula.h"
+
+#define BUFFER_SIZE 512
+
+#define TYPE_INT 1
+#define TYPE_FLOAT 2
+#define TYPE_STRING 3
 
 #endif

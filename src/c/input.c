@@ -18,7 +18,7 @@ void get_input(char* line_buffer)
 
 bool code_or_line(const char* line)
 {
-  int num = -1;
+  bool b = false;
   int token_start, token_end;
   token_end = 0;
   get_token(line, &token_start, &token_end);
@@ -32,22 +32,57 @@ bool code_or_line(const char* line)
 
       if(isdigit((unsigned char)line[i]))
 	{
-	  sscanf(&line[0], "%d", &num);
+	  return true;
 	}
     }
 
+  return false;
+}
+  
+int code_line_num(const char* line)
+{
+  int num;
+  int token_start, token_end;
+  token_end = 0;
+  get_token(line, &token_start, &token_end);
+  
+  sscanf(&line[token_start], "%d", &num);
   return num;
 }
 
+void add_code_line(code_line** program_ptr, int* current_size, const char* line)
+{
+  int line_num;
+  char  buffer[BUFFER_SIZE];
+  sscanf(line, "%d %[^\n]", &line_num, &buffer);
+
+  for(int i = 0; i < line_num; i++)
+    {
+      code_line* a_line = &(*program_ptr)[i];
+      if(a_line->num == line_num)
+	{
+	  a_line->num = line_num;
+	  strncpy(a_line->line, buffer, BUFFER_SIZE - 1);
+	  return;
+	}
+    }
+  
+  code_line* new_program = realloc(*program_ptr, (*current_size + 1) * sizeof(code_line));
+  
+  
+  *program_ptr = new_program;
+  
+  code_line* new_line = &(*program_ptr)[*current_size];
+  
+  size_t buffer_size = sizeof(new_line->line);
 
   
-void add_code_line(code_line* program, int* old_size, const char* line)
-{
-  program = realloc(program, (*old_size + 1) * sizeof(code_line));
+  strncpy(new_line->line, buffer, BUFFER_SIZE - 1);
+  new_line->line[BUFFER_SIZE - 1] = '\0';
+  new_line->num = line_num;
+
+  *current_size = *current_size + 1;
   
-  /* program[*old_size].num = line_num; */
-  
-  int len = strlen(line);
-  strncpy(program[*old_size].line, line, len);
-  *old_size = *old_size + 1;
+  return;
 }
+
