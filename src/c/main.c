@@ -2,20 +2,24 @@
 
 int main(void)
 {
+  engine_meta meta;
+  prompt_loop(meta);
+}  
 
-  
-  hensuu h = formula_eval("1 2 + 3.0 *");
-  if(h.type == TYPE_INT)
-    {
-      printf("%d\n", h.data_i);
-    }
-  else
-    {
-      printf("%f\n", h.data_f);
-    }
+/* int main(void) */
+/* { */
+/*   hensuu h = formula_eval("1 2 + 3.0 *"); */
+/*   if(h.type == TYPE_INT) */
+/*     { */
+/*       printf("%d\n", h.data_i); */
+/*     } */
+/*   else */
+/*     { */
+/*       printf("%f\n", h.data_f); */
+/*     } */
     
-  return 0;
-}
+/*   return 0; */
+/* } */
 
 /* int main(void) */
 /* { */

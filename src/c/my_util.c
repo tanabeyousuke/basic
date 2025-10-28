@@ -16,3 +16,19 @@ void get_token(const char* line, int* start, int* end)
     }
 }
 
+
+void bubble_sort (int *array, int n)
+{
+  for(int i = 0; i < n - 1; i++)
+    {
+      for(int ro = 0; ro < n - 1 ; ro++)
+	{
+	  if(array[ro] > array[ro + 1])
+	    {
+	      int ha = array[ro];
+	      array[ro] = array[ro + 1];
+	      array[ro + 1] = ha;
+	    }
+	}
+    }
+}
