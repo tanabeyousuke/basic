@@ -68,3 +68,60 @@ void print_operate(engine_meta *meta, const char* param)
   free(output.data_s);
 }
 
+int if_operate(engine_meta *meta, const char* param)
+{
+  char buffer[BUFFER_SIZE];
+  int start, end;
+  hensuu kekka;
+  end = 0;
+  get_token_cs(param, &start, &end);
+  strncpy(buffer, &param[start], end - start);
+  buffer[end - start] = '\0';
+  kekka = formula_eval(buffer);
+
+  char i[10], ro[10], ha[10];
+
+  get_token_cs(param, &start, &end);
+  strncpy(i, &param[start], end - start);
+  buffer[end - start] = '\0';
+
+  get_token_cs(param, &start, &end);
+  strncpy(ro, &param[start], end - start);
+  buffer[end - start] = '\0';
+
+  get_token_cs(param, &start, &end);
+  strncpy(ha, &param[start], end - start);
+  buffer[end - start] = '\0';
+  
+  if(kekka.type == TYPE_INT)
+    {
+      if(kekka.data_i < 0)
+	{
+	  return goto_operate(meta, i);
+	}
+      else if(kekka.data_i == 0)
+	{
+	  return goto_operate(meta, ro);
+	}
+      else if(kekka.data_i > 0)
+	{
+	  return goto_operate(meta, ha);
+	}
+    }
+  else
+    {
+      if(kekka.data_f < 0)
+	{
+	  return goto_operate(meta, i);
+	}
+      if(kekka.data_f == 0)
+	{
+	  return goto_operate(meta, ro);
+	}
+      if(kekka.data_f > 0)
+	{
+	  return goto_operate(meta, ha);
+	}
+    }
+}
+      

@@ -32,6 +32,13 @@ int line_execute(engine_meta *meta, code_line a_line)
       print_operate(meta, &a_line.line[start]);
       return 0;
     }
+  else if(strcmp(operate_buffer, "if") == 0)
+    {
+      get_token(a_line.line, &start, &end);
+      int goto_num = if_operate(meta, &a_line.line[start]);
+      printf("%d\n", goto_num);
+      return goto_num;
+    }
   else
     {
       printf("不明な命令です。@%d行目\n", a_line.num);
@@ -71,7 +78,7 @@ void run(engine_meta *meta)
 
       if(meta->code_error_flag == true)
 	{
-	  printf("エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。\n");
+	  printf("エラー:コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。\n");
 	  break;
 	}
 
