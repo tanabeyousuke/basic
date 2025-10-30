@@ -10,3 +10,5 @@ typedef struct{
 hensuu* search(hensuu *vars, int current_size, const char* name);
 int new_hensuu(hensuu** vars, int *current_size, const char* new_name);
 int mov(hensuu* vars, int current_size,  const char* name, const char* formula);
+int write(hensuu *vars, int current_size, const char *name, const char* str);
+
