@@ -1,0 +1,2307 @@
+tanabe@tanabe:~/git/basic/src/c$ ls
+include.h  input.h  main.c  my_util.c  my_util.o
+input.c    input.o  main.o  my_util.h
+tanabe@tanabe:~/git/basic/src/c$ cd ../../
+tanabe@tanabe:~/git/basic$ ls
+basic  src
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:62:7: error: ‘program’ undeclared (first use in this function); did you mean ‘program_ptr’?
+   62 |       program
+      |       ^~~~~~~
+      |       program_ptr
+input.c:62:7: note: each undeclared identifier is reported only once for each function it appears in
+input.c:62:14: error: expected ‘;’ before ‘return’
+   62 |       program
+      |              ^
+      |              ;
+......
+   78 |   return 0;
+      |   ~~~~~~      
+input.c:79:1: error: expected declaration or statement at end of input
+   79 | }
+      | ^
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:61:3: error: expected identifier or ‘(’ before ‘for’
+   61 |   for(int i = 0; i < line_num; i++)
+      |   ^~~
+input.c:61:18: error: ‘i’ undeclared (first use in this function)
+   61 |   for(int i = 0; i < line_num; i++)
+      |                  ^
+input.c:61:18: note: each undeclared identifier is reported only once for each function it appears in
+input.c:61:35: error: expected ‘;’ before ‘)’ token
+   61 |   for(int i = 0; i < line_num; i++)
+      |                                   ^
+      |                                   ;
+input.c:61:35: error: expected statement before ‘)’ token
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:63:7: error: invalid type argument of unary ‘*’ (have ‘int’)
+   63 |       *program_ptr[i]->num = line_num;
+      |       ^~~~~~~~~~~~~~~~~~~~
+input.c:64:15: warning: passing argument 1 of ‘strncpy’ makes pointer from integer without a cast [-Wint-conversion]
+   64 |       strncpy(*program_ptr[i]->line, buffer, BUFFER_SIZE - 1);
+      |               ^~~~~~~~~~~~~~~~~~~~~
+      |               |
+      |               char
+In file included from include.h:7,
+                 from input.c:1:
+/usr/include/string.h:144:40: note: expected ‘char * restrict’ but argument is of type ‘char’
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:72:52: error: ‘current_size_ptr’ undeclared (first use in this function); did you mean ‘current_size’?
+   72 |   code_line* new_program = realloc(*program_ptr, (*current_size_ptr + 1) * sizeof(code_line));
+      |                                                    ^~~~~~~~~~~~~~~~
+      |                                                    current_size
+input.c:72:52: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:77:48: error: ‘current_size_ptr’ undeclared (first use in this function); did you mean ‘current_size’?
+   77 |   code_line* new_line_entry = &(*program_ptr)[*current_size_ptr];
+      |                                                ^~~~~~~~~~~~~~~~
+      |                                                current_size
+input.c:77:48: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$upm build 
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+a
+a
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 abc
+abc
+20 def
+def
+30 ghi
+ghi
+exit
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+aiu
+20 eoka
+eoka
+20 aiue
+aiue
+
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+aiu
+20 aiue
+aiue
+10 ai
+ai
+
+tanabe@tanabe:~/git/basic$ upm build
+input.c: In function ‘add_code_line’:
+input.c:85:17: warning: assignment to ‘int’ from ‘int *’ makes integer from pointer without a cast [-Wint-conversion]
+   85 |   *current_size = current_size + 1;
+      |                 ^
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c
+20 a
+rewrite
+
+num = 10 command = a 
+num = 20 command = a 
+num = 30 command = c 
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "hello"
+20 print "i love you"
+30 print "i hate him"
+num = 10 command = print "hello" 
+num = 20 command = print "i love you" 
+num = 30 command = print "i hate him" 
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "a"
+20 sin(a)
+10 undo
+rewrite
+exit
+num = 10 command = undo 
+num = 20 command = sin(a) 
+tanabe@tanabe:~/git/basic$ upm build
+input.c:53:6: error: conflicting types for ‘add_code_line’; have ‘void(code_line **, int *, const char *)’
+   53 | void add_code_line(code_line** program_ptr, int* current_size, const char* line)
+      |      ^~~~~~~~~~~~~
+In file included from include.h:10,
+                 from input.c:1:
+input.h:10:5: note: previous declaration of ‘add_code_line’ with type ‘int(code_line **, int *, const char *)’
+   10 | int add_code_line(code_line** program_ptr, int* current_size, const char* line);
+      |     ^~~~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ls
+basic  src
+tanabe@tanabe:~/git/basic$ upm addfile hensuu.c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c:2:9: error: no macro name given in #define directive
+    2 | #define
+      |         ^
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:6:31: error: ‘program_ptr’ undeclared (first use in this function)
+    6 |   hensuu* new_vars = realloc(*program_ptr, (*current_size + 1) * sizeof(hensuu));
+      |                               ^~~~~~~~~~~
+hensuu.c:6:31: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:9:16: error: expected expression before ‘%’ token
+    9 |   new_hensuu = %(*vars)[current_size];
+      |                ^
+hensuu.c:10:21: error: request for member ‘name’ in something not a structure or union
+   10 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:11:13: error: request for member ‘name’ in something not a structure or union
+   11 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:16:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   16 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:18:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   18 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:21:10: error: ‘a_line’ undeclared (first use in this function)
+   21 |       if(a_line->name == name)
+      |          ^~~~~~
+hensuu.c:35:5: error: expected declaration or statement at end of input
+   35 |     }
+      |     ^
+hensuu.c:35:5: error: expected declaration or statement at end of input
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c:2:9: error: no macro name given in #define directive
+    2 | #define
+      |         ^
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:6:31: error: ‘program_ptr’ undeclared (first use in this function)
+    6 |   hensuu* new_vars = realloc(*program_ptr, (*current_size + 1) * sizeof(hensuu));
+      |                               ^~~~~~~~~~~
+hensuu.c:6:31: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:9:16: error: expected expression before ‘%’ token
+    9 |   new_hensuu = %(*vars)[current_size];
+      |                ^
+hensuu.c:10:21: error: request for member ‘name’ in something not a structure or union
+   10 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:11:13: error: request for member ‘name’ in something not a structure or union
+   11 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:16:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   16 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:18:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   18 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:21:10: error: ‘a_line’ undeclared (first use in this function)
+   21 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:5:31: error: ‘program_ptr’ undeclared (first use in this function)
+    5 |   hensuu* new_vars = realloc(*program_ptr, (*current_size + 1) * sizeof(hensuu));
+      |                               ^~~~~~~~~~~
+hensuu.c:5:31: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:8:16: error: expected expression before ‘%’ token
+    8 |   new_hensuu = %(*vars)[current_size];
+      |                ^
+hensuu.c:9:21: error: request for member ‘name’ in something not a structure or union
+    9 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:10:13: error: request for member ‘name’ in something not a structure or union
+   10 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:15:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:8:16: error: expected expression before ‘%’ token
+    8 |   new_hensuu = %(*vars)[current_size];
+      |                ^
+hensuu.c:9:21: error: request for member ‘name’ in something not a structure or union
+    9 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:10:13: error: request for member ‘name’ in something not a structure or union
+   10 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:15:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:8:24: error: array subscript is not an integer
+    8 |   new_hensuu = &(*vars)[current_size];
+      |                        ^
+hensuu.c:9:21: error: request for member ‘name’ in something not a structure or union
+    9 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:10:13: error: request for member ‘name’ in something not a structure or union
+   10 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:15:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘new_hensuu’:
+hensuu.c:8:14: error: lvalue required as left operand of assignment
+    8 |   new_hensuu = &(*vars)[*current_size];
+      |              ^
+hensuu.c:9:21: error: request for member ‘name’ in something not a structure or union
+    9 |   strncpy(new_hensuu->name, new_name, 19);
+      |                     ^~
+hensuu.c:10:13: error: request for member ‘name’ in something not a structure or union
+   10 |   new_hensuu->name[19] = '\0';
+      |             ^~
+hensuu.c: At top level:
+hensuu.c:15:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c:15:5: error: conflicting types for ‘mov’; have ‘int(hensuu **, int *, const char *, int,  void *)’
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘curernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *curernt_size; i++)
+      |                       ^~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘mov’:
+hensuu.c:17:23: error: ‘currernt_size’ undeclared (first use in this function); did you mean ‘current_size’?
+   17 |   for(int i = 0; i < *currernt_size; i++)
+      |                       ^~~~~~~~~~~~~
+      |                       current_size
+hensuu.c:17:23: note: each undeclared identifier is reported only once for each function it appears in
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘mov’:
+hensuu.c:20:10: error: ‘a_line’ undeclared (first use in this function)
+   20 |       if(a_line->name == name)
+      |          ^~~~~~
+hensuu.c:20:10: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm addfile formula.c
+tanabe@tanabe:~/git/basic$ upm build
+formula.c: In function ‘formula_eval’:
+formula.c:6:7: error: expected identifier or ‘(’ before ‘[’ token
+    6 |   char[10] buffer;
+      |       ^
+formula.c:14:36: error: ‘buffer’ undeclared (first use in this function); did you mean ‘setbuffer’?
+   14 |           strncpy(&formula[start], buffer, end - start);
+      |                                    ^~~~~~
+      |                                    setbuffer
+formula.c:14:36: note: each undeclared identifier is reported only once for each function it appears in
+formula.c:14:19: warning: passing argument 1 of ‘strncpy’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   14 |           strncpy(&formula[start], buffer, end - start);
+      |                   ^~~~~~~~~~~~~~~
+In file included from include.h:7,
+                 from formula.c:1:
+/usr/include/string.h:144:40: note: expected ‘char * restrict’ but argument is of type ‘const char *’
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+formula.c:15:32: error: assignment of read-only location ‘*(formula + (sizetype)(end - start))’
+   15 |           formula[end - start] = '\0';
+      |                                ^
+formula.c:19:19: warning: passing argument 1 of ‘strncpy’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   19 |           strncpy(&formula[start], buffer, 9);
+      |                   ^~~~~~~~~~~~~~~
+/usr/include/string.h:144:40: note: expected ‘char * restrict’ but argument is of type ‘const char *’
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+formula.c:20:22: error: assignment of read-only location ‘*(formula + 9)’
+   20 |           formula[9] = '0';
+      |                      ^
+formula.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 5.
+tanabe@tanabe:~/git/basic$ upm build
+formula.c: In function ‘formula_eval’:
+formula.c:14:19: warning: passing argument 1 of ‘strncpy’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   14 |           strncpy(&formula[start], buffer, end - start);
+      |                   ^~~~~~~~~~~~~~~
+In file included from include.h:7,
+                 from formula.c:1:
+/usr/include/string.h:144:40: note: expected ‘char * restrict’ but argument is of type ‘const char *’
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+formula.c:15:32: error: assignment of read-only location ‘*(formula + (sizetype)(end - start))’
+   15 |           formula[end - start] = '\0';
+      |                                ^
+formula.c:19:19: warning: passing argument 1 of ‘strncpy’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   19 |           strncpy(&formula[start], buffer, 9);
+      |                   ^~~~~~~~~~~~~~~
+/usr/include/string.h:144:40: note: expected ‘char * restrict’ but argument is of type ‘const char *’
+  144 | extern char *strncpy (char *__restrict __dest,
+      |                       ~~~~~~~~~~~~~~~~~^~~~~~
+formula.c:20:22: error: assignment of read-only location ‘*(formula + 9)’
+   20 |           formula[9] = '0';
+      |                      ^
+formula.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 5.
+tanabe@tanabe:~/git/basic$ upm build
+formula.c: In function ‘formula_eval’:
+formula.c:15:32: error: assignment of read-only location ‘*(formula + (sizetype)(end - start))’
+   15 |           formula[end - start] = '\0';
+      |                                ^
+formula.c:20:22: error: assignment of read-only location ‘*(formula + 9)’
+   20 |           formula[9] = '0';
+      |                      ^
+formula.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 5.
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+����
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+endtanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+end
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+tanabe@tanabe:~/git/basic$ upm rjn
+setup
+ addsrcdir
+ addfile
+ build
+tanabe@tanabe:~/git/basic$ upm run
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+��K*
+�p�U
+�p�U
+�p�U
+�p�U
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+����
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+	�U
+	�U
+	�U
+	�U
+	�U
+	�U
+	�U
+	�U
+	�U
+���
+	�U
+	�U
+	�U
+	�U
+	�U
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+formula.c: In function ‘formula_eval’:
+formula.c:12:32: error: expected ‘)’ before ‘or’
+   12 |       if(formula[start] == '\0' or formula[end] == '\0')
+      |         ~                      ^~~
+      |                                )
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+2
++
+3
+-
+%[^
+]
+N��
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1
+2
++
+3
+-
+%[^
+]
+=
+%d
+
+2
++
+3
+-
+%[^
+]
+=
+%d
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1, 1
+3, 2
+5, +
+7, 3
+15, -
+25, %[^
+]
+41, %s
+
+43, =
+4097, %d
+
+4099, 2
+4101, +
+4103, 3
+4111, -
+4121, %[^
+]
+4137, %s
+
+4139, =
+8188, %d
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1, 1
+3, 2
+5, +
+7, 3
+15, -
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 -
+1, 1
+3, 2
+5, +
+7, 3
+15, -
+formula_end = 9
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 -
+1, 1
+3, 2
+5, +
+7, 3
+15, -
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+1, 1
+3, 2
+5, +
+7, 3
+15, *
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 34 *
+1, 1
+3, 2
+5, +
+8, 34
+16, *
+formula_end = 10
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 34 *
+1, 1
+3, 2
+5, +
+8, 34
+10, *
+formula_end = 10
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 34 *
+1, 1
+3, 2
+5, +
+8, 34
+10, *
+formula_end = 10
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+1, 1
+3, 2
+5, +
+7, 3
+9, *
+formula_end = 9
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+1, 1
+3, 2
+5, +
+7, 3
+9, *
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+1, 1
+3, 2
+5, +
+7, 3
+9, *
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+1, 1
+int
+3, 2
+int
+5, +
+int
+7, 3
+int
+9, *
+int
+formula_end = 9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+1, 1
+int
+3, 2
+int
+5, +
+int
+9, 3.0
+float
+11, *
+int
+formula_end = 11
+tanabe@tanabe:~/git/basic$ upm build
+formula.c: In function ‘formula_eval’:
+formula.c:145:15: error: incompatible types when returning type ‘hensuu’ but ‘hensuu *’ was expected
+  145 |   return stack[shead - 1];
+      |          ~~~~~^~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+formula.c:3:9: error: conflicting types for ‘formula_eval’; have ‘hensuu *(const char *)’
+    3 | hensuu* formula_eval(const char* formula)
+      |         ^~~~~~~~~~~~
+In file included from include.h:13,
+                 from formula.c:1:
+formula.h:1:8: note: previous declaration of ‘formula_eval’ with type ‘hensuu(const char *)’
+    1 | hensuu formula_eval(const char* formula);
+      |        ^~~~~~~~~~~~
+formula.c: In function ‘formula_eval’:
+formula.c:142:15: error: incompatible types when returning type ‘hensuu’ but ‘hensuu *’ was expected
+  142 |   return stack[shead - 1];
+      |          ~~~~~^~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./a.out
+bash: ./a.out: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+1
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+1
+2
+3.0
+a
+tanabe@tanabe:~/git/basic$ upm build
+main.c: In function ‘main’:
+main.c:8:8: error: invalid operands to binary != (have ‘hensuu’ and ‘void *’)
+    8 |   if(h != NULL)
+      |        ^~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+3
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2
+2
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 +
+2
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 +
+3
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3 *
+9
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+1 2 + 3.0 *
+9.000000
+tanabe@tanabe:~/git/basic$ upm addfile engine.c
+tanabe@tanabe:~/git/basic$ upm build
+main.c: In function ‘main’:
+main.c:5:3: error: unknown type name ‘engine_meta’
+    5 |   engine_meta meta;
+      |   ^~~~~~~~~~~
+main.c:6:3: warning: implicit declaration of function ‘prompt_loop’ [-Wimplicit-function-declaration]
+    6 |   prompt_loop(meta);
+      |   ^~~~~~~~~~~
+engine.c:1:10: error: unknown type name ‘engine_meta’
+    1 | void run(engine_meta meta)
+      |          ^~~~~~~~~~~
+engine.c:14:18: error: unknown type name ‘engine_meta’
+   14 | void prompt_loop(engine_meta meta)
+      |                  ^~~~~~~~~~~
+engine.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 6.
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:8:22: error: ‘program_size’ undeclared (first use in this function)
+    8 |   for(int i = 0; i < program_size; i++)
+      |                      ^~~~~~~~~~~~
+engine.c:8:22: note: each undeclared identifier is reported only once for each function it appears in
+engine.c: In function ‘prompt_loop’:
+engine.c:29:26: error: ‘program’ undeclared (first use in this function)
+   29 |           add_code_line(&program, &line_num, meta.line_buffer);
+      |                          ^~~~~~~
+engine.c:29:36: error: ‘line_num’ undeclared (first use in this function); did you mean ‘linenum’?
+   29 |           add_code_line(&program, &line_num, meta.line_buffer);
+      |                                    ^~~~~~~~
+      |                                    linenum
+engine.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 6.
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘prompt_loop’:
+engine.c:29:26: error: ‘program’ undeclared (first use in this function)
+   29 |           add_code_line(&program, &line_num, meta.line_buffer);
+      |                          ^~~~~~~
+engine.c:29:26: note: each undeclared identifier is reported only once for each function it appears in
+engine.c:29:36: error: ‘line_num’ undeclared (first use in this function); did you mean ‘linenum’?
+   29 |           add_code_line(&program, &line_num, meta.line_buffer);
+      |                                    ^~~~~~~~
+      |                                    linenum
+engine.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 6.
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘prompt_loop’:
+engine.c:29:45: error: ‘engine_meta’ has no member named ‘line_num’
+   29 |           add_code_line(&meta.program, &meta.line_num, meta.line_buffer);
+      |                                             ^
+engine.c:37:22: error: ‘line_num’ undeclared (first use in this function)
+   37 |   for(int i = 0; i < line_num; i++)
+      |                      ^~~~~~~~
+engine.c:37:22: note: each undeclared identifier is reported only once for each function it appears in
+engine.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 6.
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘prompt_loop’:
+engine.c:29:45: error: ‘engine_meta’ has no member named ‘line_num’
+   29 |           add_code_line(&meta.program, &meta.line_num, meta.line_buffer);
+      |                                             ^
+engine.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 6.
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c 40
+exit
+num = 10 command = a 
+num = 20 command = b 
+num = 30 command = c 40 
+tanabe@tanabe:~/git/basic$ upm build
+my_util.c:19:6: error: conflicting types for ‘sort_int’; have ‘void(int *, int)’
+   19 | void sort_int(int *array, int n)
+      |      ^~~~~~~~
+In file included from include.h:11,
+                 from my_util.c:1:
+my_util.h:2:6: note: previous declaration of ‘sort_int’ with type ‘void(int *)’
+    2 | void sort_int(int *array);
+      |      ^~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm build
+main.c: In function ‘bubble_sort’:
+main.c:7:1: error: expected declaration or statement at end of input
+    7 | }
+      | ^
+input.c: In function ‘bubble_sort’:
+input.c:87:1: error: expected declaration or statement at end of input
+   87 | }
+      | ^
+my_util.c: In function ‘bubble_sort’:
+my_util.c:40:1: error: expected declaration or statement at end of input
+   40 | }
+      | ^
+hensuu.c: In function ‘bubble_sort’:
+hensuu.c:3:5: error: static declaration of ‘new_hensuu’ follows non-static declaration
+    3 | int new_hensuu(hensuu** vars, int *current_size, const char* new_name)
+      |     ^~~~~~~~~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:10:5: note: previous declaration of ‘new_hensuu’ with type ‘int(hensuu **, int *, const char *)’
+   10 | int new_hensuu(hensuu** vars, int *current_size, const char* new_name);
+      |     ^~~~~~~~~~
+hensuu.c:15:5: error: static declaration of ‘mov’ follows non-static declaration
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, int *, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data);
+      |     ^~~
+hensuu.c:36:1: error: expected declaration or statement at end of input
+   36 | }
+      | ^
+formula.c: In function ‘bubble_sort’:
+formula.c:3:8: error: static declaration of ‘formula_eval’ follows non-static declaration
+    3 | hensuu formula_eval(const char* formula)
+      |        ^~~~~~~~~~~~
+In file included from include.h:13,
+                 from formula.c:1:
+formula.h:1:8: note: previous declaration of ‘formula_eval’ with type ‘hensuu(const char *)’
+    1 | hensuu formula_eval(const char* formula);
+      |        ^~~~~~~~~~~~
+formula.c:147:1: error: expected declaration or statement at end of input
+  147 | }
+      | ^
+engine.c: In function ‘bubble_sort’:
+engine.c:3:6: error: static declaration of ‘run’ follows non-static declaration
+    3 | void run(engine_meta meta)
+      |      ^~~
+In file included from include.h:14,
+                 from engine.c:1:
+engine.h:11:6: note: previous declaration of ‘run’ with type ‘void(engine_meta)’
+   11 | void run(engine_meta meta);
+      |      ^~~
+engine.c:16:6: error: static declaration of ‘prompt_loop’ follows non-static declaration
+   16 | void prompt_loop(engine_meta meta)
+      |      ^~~~~~~~~~~
+engine.h:12:6: note: previous declaration of ‘prompt_loop’ with type ‘void(engine_meta)’
+   12 | void prompt_loop(engine_meta meta);
+      |      ^~~~~~~~~~~
+engine.c:44:1: error: expected declaration or statement at end of input
+   44 | }
+      | ^
+tanabe@tanabe:~/git/basic$ upm build
+main.c: In function ‘bubble_sort’:
+main.c:7:1: error: expected declaration or statement at end of input
+    7 | }
+      | ^
+input.c: In function ‘bubble_sort’:
+input.c:87:1: error: expected declaration or statement at end of input
+   87 | }
+      | ^
+my_util.c: In function ‘bubble_sort’:
+my_util.c:41:1: error: expected declaration or statement at end of input
+   41 | }
+      | ^
+hensuu.c: In function ‘bubble_sort’:
+hensuu.c:3:5: error: static declaration of ‘new_hensuu’ follows non-static declaration
+    3 | int new_hensuu(hensuu** vars, int *current_size, const char* new_name)
+      |     ^~~~~~~~~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:10:5: note: previous declaration of ‘new_hensuu’ with type ‘int(hensuu **, int *, const char *)’
+   10 | int new_hensuu(hensuu** vars, int *current_size, const char* new_name);
+      |     ^~~~~~~~~~
+hensuu.c:15:5: error: static declaration of ‘mov’ follows non-static declaration
+   15 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+      |     ^~~
+hensuu.h:11:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, int *, const char *, int,  void *)’
+   11 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data);
+      |     ^~~
+hensuu.c:36:1: error: expected declaration or statement at end of input
+   36 | }
+      | ^
+formula.c: In function ‘bubble_sort’:
+formula.c:3:8: error: static declaration of ‘formula_eval’ follows non-static declaration
+    3 | hensuu formula_eval(const char* formula)
+      |        ^~~~~~~~~~~~
+In file included from include.h:13,
+                 from formula.c:1:
+formula.h:1:8: note: previous declaration of ‘formula_eval’ with type ‘hensuu(const char *)’
+    1 | hensuu formula_eval(const char* formula);
+      |        ^~~~~~~~~~~~
+formula.c:147:1: error: expected declaration or statement at end of input
+  147 | }
+      | ^
+engine.c: In function ‘bubble_sort’:
+engine.c:3:6: error: static declaration of ‘run’ follows non-static declaration
+    3 | void run(engine_meta meta)
+      |      ^~~
+In file included from include.h:14,
+                 from engine.c:1:
+engine.h:11:6: note: previous declaration of ‘run’ with type ‘void(engine_meta)’
+   11 | void run(engine_meta meta);
+      |      ^~~
+engine.c:16:6: error: static declaration of ‘prompt_loop’ follows non-static declaration
+   16 | void prompt_loop(engine_meta meta)
+      |      ^~~~~~~~~~~
+engine.h:12:6: note: previous declaration of ‘prompt_loop’ with type ‘void(engine_meta)’
+   12 | void prompt_loop(engine_meta meta);
+      |      ^~~~~~~~~~~
+engine.c:44:1: error: expected declaration or statement at end of input
+   44 | }
+      | ^
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:13:26: error: ‘i’ undeclared (first use in this function)
+   13 |   bubble_sort(&num_array[i], meta.last_line);
+      |                          ^
+engine.c:13:26: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+60 b
+30 c
+exit
+num = 10 command = a 
+num = 60 command = b 
+num = 30 command = c 
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+50 b
+30 c
+exit
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+40 b
+20 c
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+40 b
+20 c
+exit
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+40 b
+20 c
+exit
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+40 b
+20 c
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ 40 b
+40: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ 40 b
+40: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ 10 a
+10: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ 20 c
+20: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ 
+tanabe@tanabe:~/git/basic$ ./basic
+40 b
+10 a
+20 c
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+my_util.c: In function ‘bubble_sort’:
+my_util.c:35:15: error: invalid type argument of unary ‘*’ (have ‘int’)
+   35 |           if (*array[j] < *array[j-1])
+      |               ^~~~~~~~~
+my_util.c:35:27: error: invalid type argument of unary ‘*’ (have ‘int’)
+   35 |           if (*array[j] < *array[j-1])
+      |                           ^~~~~~~~~~~
+my_util.c:37:25: warning: passing argument 1 of ‘swap’ makes pointer from integer without a cast [-Wint-conversion]
+   37 |               swap(array[j], array[j-1]);
+      |                    ~~~~~^~~
+      |                         |
+      |                         int
+my_util.c:19:17: note: expected ‘int *’ but argument is of type ‘int’
+   19 | void swap (int *x, int *y) {
+      |            ~~~~~^
+my_util.c:37:35: warning: passing argument 2 of ‘swap’ makes pointer from integer without a cast [-Wint-conversion]
+   37 |               swap(array[j], array[j-1]);
+      |                              ~~~~~^~~~~
+      |                                   |
+      |                                   int
+my_util.c:19:25: note: expected ‘int *’ but argument is of type ‘int’
+   19 | void swap (int *x, int *y) {
+      |                    ~~~~~^
+engine.c: In function ‘run’:
+engine.c:13:15: warning: passing argument 1 of ‘bubble_sort’ from incompatible pointer type [-Wincompatible-pointer-types]
+   13 |   bubble_sort(&num_array, meta.last_line);
+      |               ^~~~~~~~~~
+      |               |
+      |               int **
+In file included from include.h:11,
+                 from engine.c:1:
+my_util.h:2:24: note: expected ‘int *’ but argument is of type ‘int **’
+    2 | void bubble_sort (int *array, int array_size);
+      |                   ~~~~~^~~~~
+tanabe@tanabe:~/git/basic$ upm build
+my_util.c:20:6: error: conflicting types for ‘bubble_sort’; have ‘void(int *, int)’
+   20 | void bubble_sort (int *array, int n)
+      |      ^~~~~~~~~~~
+In file included from include.h:11,
+                 from my_util.c:1:
+my_util.h:2:6: note: previous declaration of ‘bubble_sort’ with type ‘void(int **, int)’
+    2 | void bubble_sort (int **array, int array_size);
+      |      ^~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:13:15: warning: passing argument 1 of ‘bubble_sort’ from incompatible pointer type [-Wincompatible-pointer-types]
+   13 |   bubble_sort(&num_array, meta.last_line);
+      |               ^~~~~~~~~~
+      |               |
+      |               int **
+In file included from include.h:11,
+                 from engine.c:1:
+my_util.h:2:24: note: expected ‘int *’ but argument is of type ‘int **’
+    2 | void bubble_sort (int *array, int array_size);
+      |                   ~~~~~^~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+40 b
+20 c
+
+10
+20
+40
+35 d
+
+10
+20
+35
+40
+
+10
+20
+35
+40
+  C-c C-c
+tanabe@tanabe:~/git/basic$ git add .
+tanabe@tanabe:~/git/basic$ git commit -m "a"
+[main d4c7a0c] a
+ Committer: tanabe <tanabe@tanabe>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 11 files changed, 99 insertions(+), 12 deletions(-)
+ create mode 100644 src/c/engine.c
+ create mode 100644 src/c/engine.h
+ create mode 100644 src/c/engine.o
+tanabe@tanabe:~/git/basic$ git push origin main -f
+Enumerating objects: 60, done.
+Counting objects: 100% (60/60), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (50/50), done.
+Writing objects: 100% (60/60), 19.36 KiB | 4.84 MiB/s, done.
+Total 60 (delta 22), reused 8 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (22/22), done.        
+To github.com:tanabeyousuke/basic.git
+ + de945a7...d4c7a0c main -> main (forced update)
+tanabe@tanabe:~/git/basic$ ls
+basic  src
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘prompt_loop’:
+engine.c:29:3: error: expected ‘;’ before ‘while’
+   29 |   while(meta.exit_flag == false)
+      |   ^~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c 
+40 d
+45 ai
+35 ad
+
+10
+20
+30
+35
+40
+45
+exit
+10
+20
+30
+35
+40
+45
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+main.c: In function ‘main’:
+main.c:6:15: error: incompatible type for argument 1 of ‘prompt_loop’
+    6 |   prompt_loop(meta);
+      |               ^~~~
+      |               |
+      |               engine_meta
+In file included from include.h:14,
+                 from main.c:1:
+engine.h:13:31: note: expected ‘engine_meta *’ but argument is of type ‘engine_meta’
+   13 | void prompt_loop(engine_meta *meta);
+      |                  ~~~~~~~~~~~~~^~~~
+engine.c: In function ‘run’:
+engine.c:6:40: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    6 |   num_array = malloc(sizeof(int) * meta.last_line);
+      |                                        ^
+      |                                        ->
+engine.c:8:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    8 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:10:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   10 |       num_array[i] = meta.program[i].num;
+      |                          ^
+      |                          ->
+engine.c:13:30: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   13 |   bubble_sort(num_array, meta.last_line);
+      |                              ^
+      |                              ->
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta)
+      |       ^~~~~~~~~~~~
+engine.c:17:25: error: expected ‘;’ before ‘}’ token
+   17 |       line_execute(meta)
+      |                         ^
+      |                         ;
+   18 |     }
+      |     ~                    
+engine.c: In function ‘prompt_loop’:
+engine.c:30:13: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   30 |   while(meta.exit_flag == false)
+      |             ^
+      |             ->
+engine.c:32:21: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   32 |       get_input(meta.line_buffer);
+      |                     ^
+      |                     ->
+engine.c:34:38: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   34 |       bool l_or_c = code_or_line(meta.line_buffer);
+      |                                      ^
+      |                                      ->
+engine.c:37:43: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   37 |           int linenum = code_line_num(meta.line_buffer);
+      |                                           ^
+      |                                           ->
+engine.c:46:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   46 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:51:12: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   51 |   free(meta.program);
+      |            ^
+      |            ->
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:6:40: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    6 |   num_array = malloc(sizeof(int) * meta.last_line);
+      |                                        ^
+      |                                        ->
+engine.c:8:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    8 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:10:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   10 |       num_array[i] = meta.program[i].num;
+      |                          ^
+      |                          ->
+engine.c:13:30: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   13 |   bubble_sort(num_array, meta.last_line);
+      |                              ^
+      |                              ->
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta)
+      |       ^~~~~~~~~~~~
+engine.c:17:25: error: expected ‘;’ before ‘}’ token
+   17 |       line_execute(meta)
+      |                         ^
+      |                         ;
+   18 |     }
+      |     ~                    
+engine.c: In function ‘prompt_loop’:
+engine.c:30:13: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   30 |   while(meta.exit_flag == false)
+      |             ^
+      |             ->
+engine.c:32:21: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   32 |       get_input(meta.line_buffer);
+      |                     ^
+      |                     ->
+engine.c:34:38: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   34 |       bool l_or_c = code_or_line(meta.line_buffer);
+      |                                      ^
+      |                                      ->
+engine.c:37:43: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   37 |           int linenum = code_line_num(meta.line_buffer);
+      |                                           ^
+      |                                           ->
+engine.c:46:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   46 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:51:12: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   51 |   free(meta.program);
+      |            ^
+      |            ->
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:6:40: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    6 |   num_array = malloc(sizeof(int) * meta.last_line);
+      |                                        ^
+      |                                        ->
+engine.c:8:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    8 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:10:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   10 |       num_array[i] = meta.program[i].num;
+      |                          ^
+      |                          ->
+engine.c:13:30: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   13 |   bubble_sort(num_array, meta.last_line);
+      |                              ^
+      |                              ->
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta)
+      |       ^~~~~~~~~~~~
+engine.c:17:25: error: expected ‘;’ before ‘}’ token
+   17 |       line_execute(meta)
+      |                         ^
+      |                         ;
+   18 |     }
+      |     ~                    
+engine.c: In function ‘prompt_loop’:
+engine.c:30:13: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   30 |   while(meta.exit_flag == false)
+      |             ^
+      |             ->
+engine.c:32:21: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   32 |       get_input(meta.line_buffer);
+      |                     ^
+      |                     ->
+engine.c:34:38: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   34 |       bool l_or_c = code_or_line(meta.line_buffer);
+      |                                      ^
+      |                                      ->
+engine.c:37:43: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   37 |           int linenum = code_line_num(meta.line_buffer);
+      |                                           ^
+      |                                           ->
+engine.c:46:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   46 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+tanabe@tanabe:~/git/basic$       |                                           ^
+bash: 予期しないトークン `|' 周辺に構文エラーがあります
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:6:40: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    6 |   num_array = malloc(sizeof(int) * meta.last_line);
+      |                                        ^
+      |                                        ->
+engine.c:8:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+    8 |   for(int i = 0; i < meta.last_line; i++)
+      |                          ^
+      |                          ->
+engine.c:10:26: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   10 |       num_array[i] = meta.program[i].num;
+      |                          ^
+      |                          ->
+engine.c:13:30: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   13 |   bubble_sort(num_array, meta.last_line);
+      |                              ^
+      |                              ->
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta)
+      |       ^~~~~~~~~~~~
+engine.c:17:25: error: expected ‘;’ before ‘}’ token
+   17 |       line_execute(meta)
+      |                         ^
+      |                         ;
+   18 |     }
+      |     ~                    
+engine.c: In function ‘prompt_loop’:
+engine.c:30:13: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   30 |   while(meta.exit_flag == false)
+      |             ^
+      |             ->
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:13:30: error: ‘meta’ is a pointer; did you mean to use ‘->’?
+   13 |   bubble_sort(num_array, meta.last_line);
+      |                              ^
+      |                              ->
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta)
+      |       ^~~~~~~~~~~~
+engine.c:17:25: error: expected ‘;’ before ‘}’ token
+   17 |       line_execute(meta)
+      |                         ^
+      |                         ;
+   18 |     }
+      |     ~                    
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:17:7: warning: implicit declaration of function ‘line_execute’ [-Wimplicit-function-declaration]
+   17 |       line_execute(meta);
+      |       ^~~~~~~~~~~~
+/usr/bin/ld: src/c/engine.o: in function `run':
+engine.c:(.text+0xa6): undefined reference to `line_execute'
+collect2: error: ld returned 1 exit status
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘run’:
+engine.c:17:7: error: unknown type name ‘code_ine’; did you mean ‘code_line’?
+   17 |       code_ine a_line;
+      |       ^~~~~~~~
+      |       code_line
+engine.c:22:24: error: incompatible types when assigning to type ‘int’ from type ‘code_line’
+   22 |               a_line = meta->program[ro];
+      |                        ^~~~
+engine.c:26:23: error: too many arguments to function ‘line_execute’
+   26 |       int next_line = line_execute(meta, a_line, meta->num_array);
+      |                       ^~~~~~~~~~~~
+In file included from include.h:14,
+                 from engine.c:1:
+engine.h:13:5: note: declared here
+   13 | int line_execute(engine_meta *meta);
+      |     ^~~~~~~~~~~~
+engine.c:46:8: error: ‘num_array’ undeclared (first use in this function)
+   46 |   free(num_array);
+      |        ^~~~~~~~~
+engine.c:46:8: note: each undeclared identifier is reported only once for each function it appears in
+/usr/bin/ld: src/c/engine.o: in function `run':
+engine.c:(.text+0xa6): undefined reference to `line_execute'
+collect2: error: ld returned 1 exit status
+tanabe@tanabe:~/git/basic$ upm build
+/usr/bin/ld: src/c/engine.o: in function `run':
+engine.c:(.text+0x1c0): undefined reference to `line_execute'
+collect2: error: ld returned 1 exit status
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+20 eoka
+30 kikuke
+
+
+
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+20 eoa
+30 iue
+
+
+
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+20 eoa
+30 iue
+
+aiu
+eoa
+iue
+exit
+aiu
+eoa
+iue
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c
+
+a
+b
+c
+  C-c C-c
+tanabe@tanabe:~/git/basic$ 
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c
+
+match
+
+match
+
+match
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 abc
+20 def
+30 ghi
+
+match
+abc
+match
+def
+match
+ghi
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 abc
+20 def
+30 ghi
+
+abc
+def
+ghi
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘line_execute’:
+engine.c:23:18: error: ‘operate’ undeclared (first use in this function)
+   23 |   printf("%s\n", operate);
+      |                  ^~~~~~~
+engine.c:23:18: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu and
+20 eoa or
+30 iue xor
+
+aiu and
+aiu��
+eoa or
+eoa��
+iue xor
+iue��
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+
+10 aiu adn
+30 eoa or
+20 iue xor
+
+aiu����
+iue����
+eoa����
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu and
+20 eoa or
+30 iue xor
+
+aiu`֠
+eoa`֠
+iue`֠
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu and
+20 eoa or
+30 iue xor
+
+aiu[r�
+eoa[r�
+iue[r�
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘line_execute’:
+engine.c:14:7: error: ‘opearate_buffer’ undeclared (first use in this function); did you mean ‘operate_buffer’?
+   14 |       opearate_buffer[end - start] = '\0';
+      |       ^~~~~~~~~~~~~~~
+      |       operate_buffer
+engine.c:14:7: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu and
+20 eoa or
+30 iue xor
+
+aiu
+eoa
+iue
+  C-c C-c
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu and
+20 eoaiueoaiue or
+
+aiu
+命令の文字数が多すぎる気がします。@20行目
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘prompt_loop’:
+engine.c:94:15: error: ‘engine_meta’ has no member named ‘error_flag’
+   94 |           meta->error_flag = false;
+      |               ^~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 aiu
+20 aoaiueoaiue or
+
+aiu
+命令の文字数が多すぎる気がします。@20行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+
+aiu
+命令の文字数が多すぎる気がします。@20行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm addfile operate.c
+tanabe@tanabe:~/git/basic$ 
+tanabe@tanabe:~/git/basic$ ls
+basic  src
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:8:13: error: ‘formula’ undeclared (first use in this function); did you mean ‘formula_end’?
+    8 |   get_token(formula, &start, &end);
+      |             ^~~~~~~
+      |             formula_end
+operate.c:8:13: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:12:15: error: ‘buffer’ undeclared (first use in this function); did you mean ‘buffer1’?
+   12 |       strncpy(buffer, &formula[start], end - start);
+      |               ^~~~~~
+      |               buffer1
+operate.c:27:10: error: ‘num_array’ undeclared (first use in this function)
+   27 |       if(num_array[i] == goto_num)
+      |          ^~~~~~~~~
+operate.c:36:14: error: ‘got_num’ undeclared (first use in this function); did you mean ‘goto_num’?
+   36 |       return got_num;
+      |              ^~~~~~~
+      |              goto_num
+operate.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 7.
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:12:24: error: ‘formula’ undeclared (first use in this function)
+   12 |       strncpy(buffer, &formula[start], end - start);
+      |                        ^~~~~~~
+operate.c:12:24: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:27:10: error: ‘num_array’ undeclared (first use in this function)
+   27 |       if(num_array[i] == goto_num)
+      |          ^~~~~~~~~
+operate.c:36:14: error: ‘got_num’ undeclared (first use in this function); did you mean ‘goto_num’?
+   36 |       return got_num;
+      |              ^~~~~~~
+      |              goto_num
+operate.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 7.
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:12:24: error: ‘formula’ undeclared (first use in this function)
+   12 |       strncpy(buffer, &formula[start], end - start);
+      |                        ^~~~~~~
+operate.c:12:24: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:27:10: error: ‘num_array’ undeclared (first use in this function)
+   27 |       if(num_array[i] == goto_num)
+      |          ^~~~~~~~~
+operate.c:36:14: error: ‘got_num’ undeclared (first use in this function); did you mean ‘goto_num’?
+   36 |       return got_num;
+      |              ^~~~~~~
+      |              goto_num
+operate.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 7.
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:12:24: error: ‘formula’ undeclared (first use in this function)
+   12 |       strncpy(buffer, &formula[start], end - start);
+      |                        ^~~~~~~
+operate.c:12:24: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:27:10: error: ‘num_array’ undeclared (first use in this function)
+   27 |       if(num_array[i] == goto_num)
+      |          ^~~~~~~~~
+operate.c:36:14: error: ‘got_num’ undeclared (first use in this function); did you mean ‘goto_num’?
+   36 |       return got_num;
+      |              ^~~~~~~
+      |              goto_num
+operate.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 7.
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:27:10: error: ‘num_array’ undeclared (first use in this function)
+   27 |       if(num_array[i] == goto_num)
+      |          ^~~~~~~~~
+operate.c:27:10: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:36:14: error: ‘got_num’ undeclared (first use in this function); did you mean ‘goto_num’?
+   36 |       return got_num;
+      |              ^~~~~~~
+      |              goto_num
+operate.o not found. most likely due to a compilation failure.
+  at /home/tanabe/.bin/upm line 162, <SRCLIST> line 7.
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 10
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 20
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘goto_operate’:
+operate.c:10:14: error: expected ‘;’ before ‘if’
+   10 |   printf("a")
+      |              ^
+      |              ;
+   11 |   if(end - start < 10)
+      |   ~~          
+operate.c:23:24: error: ‘goto_num’ undeclared (first use in this function)
+   23 |   sscanf(buffer, "%d", goto_num);
+      |                        ^~~~~~~~
+operate.c:23:24: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 10
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+got 10
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ ./basic
+goto 10
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 10
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 10
+
+a
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 goto 10
+
+ 10
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ ./basic
+5 goto 10 
+
+ 10 
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+5 goto 10
+
+ 10
+ 10
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+5 goto 10
+
+ 10
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+5 goto 10
+
+ 10
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+
+5 goto 10
+
+Segmentation fault (コアダンプ)
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+5 goto 10
+
+
+不正な行番号です。  C-c C-c
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 goto 10
+
+不明な命令です。@10行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+
+不明な命令です。@10行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘line_execute’:
+engine.c:31:38: warning: passing argument 3 of ‘get_token’ makes pointer from integer without a cast [-Wint-conversion]
+   31 |       get_token(a_line.line, &start, end);
+      |                                      ^~~
+      |                                      |
+      |                                      int
+In file included from include.h:11,
+                 from engine.c:1:
+my_util.h:1:51: note: expected ‘int *’ but argument is of type ‘int’
+    1 | void get_token(const char* line, int* start, int* end);
+      |                                              ~~~~~^~~
+operate.c: In function ‘print_operate’:
+operate.c:47:3: error: ‘print’ undeclared (first use in this function); did you mean ‘printf’?
+   47 |   print
+      |   ^~~~~
+      |   printf
+operate.c:47:3: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:47:8: error: expected ‘;’ before ‘}’ token
+   47 |   print
+      |        ^
+      |        ;
+   48 | }
+      | ~       
+/usr/bin/ld: src/c/engine.o: in function `line_execute':
+engine.c:(.text+0x14c): undefined reference to `print_operate'
+collect2: error: ld returned 1 exit status
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘line_execute’:
+engine.c:31:38: warning: passing argument 3 of ‘get_token’ makes pointer from integer without a cast [-Wint-conversion]
+   31 |       get_token(a_line.line, &start, end);
+      |                                      ^~~
+      |                                      |
+      |                                      int
+In file included from include.h:11,
+                 from engine.c:1:
+my_util.h:1:51: note: expected ‘int *’ but argument is of type ‘int’
+    1 | void get_token(const char* line, int* start, int* end);
+      |                                              ~~~~~^~~
+tanabe@tanabe:~/git/basic$ upm build
+engine.c: In function ‘line_execute’:
+engine.c:31:38: error: invalid type argument of unary ‘*’ (have ‘int’)
+   31 |       get_token(a_line.line, &start, *end);
+      |                                      ^~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘print_operate’:
+operate.c:55:7: error: ‘buffer’ undeclared (first use in this function); did you mean ‘buffer1’?
+   55 |       buffer[end - start] = '\0';
+      |       ^~~~~~
+      |       buffer1
+operate.c:55:7: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:63:13: error: ‘operate_buffer’ undeclared (first use in this function)
+   63 |   if(strcmp(operate_buffer, "const") == 0)
+      |             ^~~~~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘print_operate’:
+operate.c:59:15: error: ‘buffer’ undeclared (first use in this function); did you mean ‘buffer1’?
+   59 |       strncpy(buffer, &param[start], 9);
+      |               ^~~~~~
+      |               buffer1
+operate.c:59:15: note: each undeclared identifier is reported only once for each function it appears in
+operate.c:63:13: error: ‘operate_buffer’ undeclared (first use in this function)
+   63 |   if(strcmp(operate_buffer, "const") == 0)
+      |             ^~~~~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+s
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ 10 print const, hello!
+10: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ 
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+ hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ 10 print const, hello!
+10: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+a_line.line[end] hello!
+
+a_line.line[end] hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$upm build 
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+a_line.line[end] hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+ hello!
+ hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+print const, hello!
+ hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!
+
+6, c 
+   C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!\n
+
+, hello!10 print const, hello!
+
+, hello!
+, hello!
+, hello!
+, hello!  C-c C-c
+tanabe@tanabe:~/git/basic$ 10 print const, hello!
+10: コマンドが見つかりません
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!\n
+
+, hello!\n  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!\n
+
+hello!\n
+hello!\n  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+/usr/bin/ld: src/c/operate.o: in function `use_escape':
+operate.c:(.text+0x264): multiple definition of `use_escape'; src/c/my_util.o:my_util.c:(.text+0x22f): first defined here
+collect2: error: ld returned 1 exit status
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!\n
+
+hello!\n  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘print_operate’:
+operate.c:69:18: warning: passing argument 1 of ‘use_escape’ from incompatible pointer type [-Wincompatible-pointer-types]
+   69 |       use_escape(&buffer2);
+      |                  ^~~~~~~~
+      |                  |
+      |                  char (*)[512]
+In file included from include.h:11,
+                 from operate.c:1:
+my_util.h:4:23: note: expected ‘char *’ but argument is of type ‘char (*)[512]’
+    4 | void use_escape(char* line);
+      |                 ~~~~~~^~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./asic
+bash: ./asic: そのようなファイルやディレクトリはありません
+tanabe@tanabe:~/git/basic$ ./basic
+10 print const, hello!\n
+
+hello!
+10 print "hello!"
+
+hello!
+hello!10 print const, hello!\n
+
+hello!
+  C-c C-c
+tanabe@tanabe:~/git/basic$ ./basic
+  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘print_operate’:
+operate.c:60:6: error: ‘buffer’ undeclared (first use in this function); did you mean ‘buffer1’?
+   60 |   if(buffer[0] == '"' && buffer[(end - 1) - start] == '"')
+      |      ^~~~~~
+      |      buffer1
+operate.c:60:6: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+operate.c: In function ‘print_operate’:
+operate.c:60:6: error: ‘buffer’ undeclared (first use in this function); did you mean ‘buffer1’?
+   60 |   if(buffer[0] == '"' && buffer1[(end - 1) - start] == '"')
+      |      ^~~~~~
+      |      buffer1
+operate.c:60:6: note: each undeclared identifier is reported only once for each function it appears in
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "hello!"
+
+hello!"  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "hello!"
+
+hello!"  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "hello!"
+
+hello!"  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "hello! how are you? \n"
+
+hello!10 print "hello! how are you? \n"
+
+hello! how are you? 
+20 goto 10
+
+hello! how are you? 
+不正な行番号です。  C-c C-c
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c:36:5: error: conflicting types for ‘mov’; have ‘int(hensuu *, int,  const char *, int,  void *)’
+   36 | int mov(hensuu* vars, int current_size,  const char* name, int type, void* data)
+      |     ^~~
+In file included from include.h:12,
+                 from hensuu.c:1:
+hensuu.h:12:5: note: previous declaration of ‘mov’ with type ‘int(hensuu **, int *, const char *, int,  void *)’
+   12 | int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data);
+      |     ^~~
+hensuu.c: In function ‘mov’:
+hensuu.c:49:31: warning: dereferencing ‘void *’ pointer
+   49 |       a_hensuu->data_i = (int)*data;
+      |                               ^~~~~
+hensuu.c:49:26: error: invalid use of void expression
+   49 |       a_hensuu->data_i = (int)*data;
+      |                          ^
+hensuu.c:53:33: warning: dereferencing ‘void *’ pointer
+   53 |       a_hensuu->data_f = (float)*data;
+      |                                 ^~~~~
+hensuu.c:53:26: error: invalid use of void expression
+   53 |       a_hensuu->data_f = (float)*data;
+      |                          ^
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘mov’:
+hensuu.c:49:31: warning: dereferencing ‘void *’ pointer
+   49 |       a_hensuu->data_i = (int)*data;
+      |                               ^~~~~
+hensuu.c:49:26: error: invalid use of void expression
+   49 |       a_hensuu->data_i = (int)*data;
+      |                          ^
+hensuu.c:53:33: warning: dereferencing ‘void *’ pointer
+   53 |       a_hensuu->data_f = (float)*data;
+      |                                 ^~~~~
+hensuu.c:53:26: error: invalid use of void expression
+   53 |       a_hensuu->data_f = (float)*data;
+      |                          ^
+tanabe@tanabe:~/git/basic$ upm build
+hensuu.c: In function ‘mov’:
+hensuu.c:49:27: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+   49 |       a_hensuu->data_i = *(int)data;
+      |                           ^
+hensuu.c:49:26: error: invalid type argument of unary ‘*’ (have ‘int’)
+   49 |       a_hensuu->data_i = *(int)data;
+      |                          ^~~~~~~~~~
+hensuu.c:53:7: error: pointer value used where a floating-point was expected
+   53 |       a_hensuu->data_f = *(float)data;
+      |       ^~~~~~~~
+hensuu.c:53:26: error: invalid type argument of unary ‘*’ (have ‘float’)
+   53 |       a_hensuu->data_f = *(float)data;
+      |                          ^~~~~~~~~~~~
+tanabe@tanabe:~/git/basic$ upm build
+tanabe@tanabe:~/git/basic$ ./basic
+10 a
+20 b
+30 c
+
+不明な命令です。@10行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+5 goto 10
+
+不正な行番号です。不明な命令です。@10行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+10 print "aiu"
+20 goto  10
+
+不正な行番号です。aiu不正な行番号です。不明な命令です。@30行目
+エラー コードに誤りがあるそうです。上にエラーの内容が出てるはずなので、修正してください。
+30 print "eoka"
+
+不正な行番号です。aiu不正な行番号です。eoka
+不正な行番号です。aiu不正な行番号です。eoka  C-c C-c
+tanabe@tanabe:~/git/basic$upm build 
+tanabe@tanabe:~/git/basic$ ./basic
+10 print "aiueo"
+20 goto 10
+
+aiueo不正な行番号です。

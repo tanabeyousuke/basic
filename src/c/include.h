@@ -12,6 +12,7 @@
 #include "hensuu.h"
 #include "formula.h"
 #include "engine.h"
+#include "operate.h"
 
 #define BUFFER_SIZE 512
 

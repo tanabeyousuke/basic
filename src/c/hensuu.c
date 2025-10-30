@@ -1,7 +1,28 @@
 #include "include.h"
 
+hensuu* search_hensuu(hensuu *vars, int current_size, const char* name)
+{
+  hensuu* a_hensuu = NULL;
+  for(int i = 0; i < current_size; i++)
+    {
+      if(strcmp(vars[i].name, name) == 0)
+	{
+	  a_hensuu = &vars[i];
+	  break;
+	}
+    }
+  return a_hensuu;
+}
+
 int new_hensuu(hensuu** vars, int *current_size, const char* new_name)
 {
+  hensuu *searched = search_hensuu(*vars, *current_size, new_name);
+  if(searched != NULL)
+    {
+      printf("定義済みです\n");
+      return 1;
+    }
+ 
   hensuu* new_vars = realloc(*vars, (*current_size + 1) * sizeof(hensuu));
   *vars = new_vars;
   
@@ -12,25 +33,24 @@ int new_hensuu(hensuu** vars, int *current_size, const char* new_name)
   return 0;
 }
 
-int mov(hensuu** vars, int *current_size,  const char* name, int type, void* data)
+int mov(hensuu* vars, int current_size,  const char* name, int type, void* data)
 {
-  for(int i = 0; i < *current_size; i++)
+  hensuu *a_hensuu = search_hensuu(vars, current_size, name);
+  if(a_hensuu == NULL)
     {
-      hensuu* a_hensuu = &(*vars)[i];
-      if(a_hensuu->name == name)
-	{
-	  if(type = TYPE_INT)
-	    {
-	    }
-	  else if(type = TYPE_FLOAT)
-	    {
-	    }
-	  else if(type = TYPE_STRING)
-	    {
-	    }
-	  else
-	    {
-	    }
-	}
+      printf("未定義です\n");
+      return 1;
     }
+  
+  a_hensuu->type = type;
+  
+  if(a_hensuu->type == TYPE_INT)
+    {
+      a_hensuu->data_i = *(int*)data;
+    }
+  else if(a_hensuu->type == TYPE_FLOAT)
+    {
+      a_hensuu->data_f = *(float*)data;
+    }
+  return 0;
 }

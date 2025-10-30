@@ -32,3 +32,41 @@ void bubble_sort (int *array, int n)
 	}
     }
 }
+
+void get_token_cs(const char* line, int* start, int* end)
+{
+  *start = *end;
+  while(line[*start] == ' ' || line[*start] == ',')
+    {
+      *start = *start + 1;
+    }
+
+  *end = *start + 1;
+  while(line[*end] != ',')
+    {
+      if(line[*end] == '\0') break;
+      *end = *end + 1;
+    }
+}
+  
+void use_escape(char* line)
+{
+  char *read_ptr = line;
+  char *write_ptr = line;
+  
+  while (*read_ptr != '\0')
+    {
+      if (*read_ptr == '\\' && *(read_ptr + 1) == 'n')
+	{
+	  *write_ptr = '\n';
+	  read_ptr += 2;
+	}
+      else
+	{
+	  *write_ptr = *read_ptr;
+	  read_ptr += 1;
+	}
+      write_ptr += 1;
+    }
+  *write_ptr = '\0';
+}

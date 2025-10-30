@@ -3,7 +3,7 @@
 int main(void)
 {
   engine_meta meta;
-  prompt_loop(meta);
+  prompt_loop(&meta);
 }  
 
 /* int main(void) */
