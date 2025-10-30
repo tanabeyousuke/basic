@@ -23,7 +23,7 @@ int line_execute(engine_meta *meta, code_line a_line)
   if(strcmp(operate_buffer, "goto") == 0)
     {
       get_token(a_line.line, &start, &end);
-      int goto_num = goto_operate(meta, &a_line.line[end]);
+      int goto_num = goto_operate(meta, &a_line.line[start]);
       return goto_num;
     }
   else if(strcmp(operate_buffer, "print") == 0)
@@ -64,6 +64,7 @@ void run(engine_meta *meta)
 	    {
 	      a_line = meta->program[ro];
 	    }
+
 	}
 
       int next_line = line_execute(meta, a_line);
@@ -80,7 +81,8 @@ void run(engine_meta *meta)
 	    {
 	      if(meta->num_array[ro] == next_line)
 		{
-		  i = ro;
+		  i = ro - 1;
+		  break;
 		}
 	    }
 	}

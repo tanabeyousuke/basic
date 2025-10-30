@@ -6,7 +6,7 @@ int goto_operate(engine_meta *meta, const char* param)
   int start, end;
   end = 0;
   get_token(param, &start, &end);
-  
+
   if(end - start < 10)
     {
       strncpy(buffer, &param[start], end - start);
@@ -19,12 +19,11 @@ int goto_operate(engine_meta *meta, const char* param)
     }
   
   int goto_num;
-  sscanf(buffer, "%d", goto_num);
+  sscanf(buffer, "%d", &goto_num);
 
   bool flag = false;
   for(int i = 0; i < meta->last_line; i++)
     {
-      printf("%d\n", meta->num_array[i]);
       if(meta->num_array[i] == goto_num)
 	{
 	  flag = true;

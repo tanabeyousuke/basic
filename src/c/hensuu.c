@@ -33,7 +33,7 @@ int new_hensuu(hensuu** vars, int *current_size, const char* new_name)
   return 0;
 }
 
-int mov(hensuu* vars, int current_size,  const char* name, int type, void* data)
+int mov(hensuu* vars, int current_size,  const char* name, const char* formula)
 {
   hensuu *a_hensuu = search_hensuu(vars, current_size, name);
   if(a_hensuu == NULL)
@@ -42,15 +42,6 @@ int mov(hensuu* vars, int current_size,  const char* name, int type, void* data)
       return 1;
     }
   
-  a_hensuu->type = type;
-  
-  if(a_hensuu->type == TYPE_INT)
-    {
-      a_hensuu->data_i = *(int*)data;
-    }
-  else if(a_hensuu->type == TYPE_FLOAT)
-    {
-      a_hensuu->data_f = *(float*)data;
-    }
+  *a_hensuu = formula_eval(formula);
   return 0;
 }
