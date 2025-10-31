@@ -75,6 +75,7 @@ int write(hensuu *vars, int current_size, const char *name, const char* str)
   size_t length = strlen(str);
   a_hensuu->data_s = malloc(length);
   strncpy(a_hensuu->data_s, str, length);
+  a_hensuu->type = TYPE_STRING;
   
   return 0;
 }  

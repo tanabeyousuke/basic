@@ -9,8 +9,6 @@ int goto_operate(engine_meta *meta, const char* param)
 
   if(end - start < 10)
     {
-      strncpy(buffer, &param[start], end - start);
-      buffer[end - start] = '\0';
     }
   else
     {
@@ -125,3 +123,19 @@ int if_operate(engine_meta *meta, const char* param)
     }
 }
       
+void let_operate(engine_meta *meta, const char* param)
+{
+  char buffer[BUFFER_SIZE];
+  int start, end;
+  end = 0;
+  get_token(param, &start, &end);
+  strncpy(buffer, &param[start], end - start);
+  buffer[end - start] = '\0';
+
+  int result = new_hensuu(&meta->vars, &meta->current_size, buffer);
+  if(result == 1)
+    {
+      meta->code_error_flag = true;
+    }
+}
+

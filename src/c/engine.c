@@ -39,6 +39,12 @@ int line_execute(engine_meta *meta, code_line a_line)
       printf("%d\n", goto_num);
       return goto_num;
     }
+  else if(strcmp(operate_buffer, "let") == 0)
+    {
+      get_token(a_line.line, &start, &end);
+      let_operate(meta, &a_line.line[start]);
+      return 0;
+    }
   else
     {
       printf("不明な命令です。@%d行目\n", a_line.num);
